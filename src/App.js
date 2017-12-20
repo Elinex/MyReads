@@ -6,10 +6,10 @@ class BooksApp extends React.Component{
   render(){
     return (
       <div>
-          <Shelf shelf="Currently Reading"/>
-          <Shelf shelf="Want to Read"/>
-          <Shelf shelf="Read"/>
-        </div>
+        <Shelf shelf="Currently Reading"/>
+        <Shelf shelf="Want to Read"/>
+        <Shelf shelf="Read"/>
+      </div>
     )
   }
 }
