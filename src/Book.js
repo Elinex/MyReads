@@ -36,21 +36,23 @@ export default class Book extends React.Component{
       }
     ];
 
-    return (<div className="books-grid">
-      {library.map(book =>
-        (<li key={book.id}>
-          <div className="book">
-            <div className="book-top">
-              <div className="book-cover" style={book.bookCover}></div>
-              <div className="book-shelf-changer">
-                <MenuSelect />
+    return (
+      <ol className="books-grid">
+        {library.map(book =>
+          (<li key={book.id}>
+            <div className="book">
+              <div className="book-top">
+                <div className="book-cover" style={book.bookCover}></div>
+                <div className="book-shelf-changer">
+                  <MenuSelect />
+                </div>
               </div>
+              <div className="book-title">{book.bookTitle}</div>
+              <div className="book-authors">{book.bookAuthor}</div>
             </div>
-            <div className="book-title">{book.bookTitle}</div>
-            <div className="book-authors">{book.bookAuthor}</div>
-          </div>
-        </li>)
-      )}
-    </div>)
+          </li>)
+        )}
+      </ol>
+    )
   }
 }

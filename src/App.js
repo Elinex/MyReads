@@ -1,10 +1,16 @@
 import React from 'react';
 import './App.css';
-import Book from './Book'
+import Shelf from './Shelf'
 
 class BooksApp extends React.Component{
   render(){
-    return <Book />
+    return (
+      <div>
+          <Shelf shelf="Currently Reading"/>
+          <Shelf shelf="Want to Read"/>
+          <Shelf shelf="Read"/>
+        </div>
+    )
   }
 }
 
