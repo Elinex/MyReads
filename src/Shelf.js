@@ -36,20 +36,44 @@ export default class Shelf extends React.Component{
           backgroundImage: 'url("http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api")'
         },
         shelf: "Read"
+      },
+      {
+        id: 4,
+        bookTitle: "1776",
+        bookAuthor: "David McCullough",
+        bookCover: {
+          width: 128,
+          height: 193,
+          backgroundImage: 'url("http://books.google.com/books/content?id=uu1mC6zWNTwC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73pGHfBNSsJG9Y8kRBpmLUft9O4BfItHioHolWNKOdLavw-SLcXADy3CPAfJ0_qMb18RmCa7Ds1cTdpM3dxAGJs8zfCfm8c6ggBIjzKT7XR5FIB53HHOhnsT7a0Cc-PpneWq9zX&source=gbs_api")'
+        },
+        shelf: "Read"
       }
     ]
   }
 
+  // removeContact = (contact) => {
+  //   this.setState((state) => ({
+  //     contacts: state.contacts.filter((c) => c.id !== contact.id)
+  //   }))
+  // }
+
+  // changeShelf = (book) => {
+  //   this.setState((state) => {
+  //     state.books.book.shelf = 0
+  //   });
+  //   console.log(this.state);
+  // }
   render(){
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.shelf}</h2>
+        <h2 className="bookshelf-title">{this.props.shelfName}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
             {this.state.books.map(book =>
-              {if (book.shelf === this.props.shelf) {
+              {if (book.shelf === this.props.shelfName) {
                 return (
                   <Book
+                    shelf={book.shelf}
                     key={book.id}
                     cover={book.bookCover}
                     title={book.bookTitle}

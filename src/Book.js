@@ -8,7 +8,7 @@ export default function Book (props){
         <div className="book-top">
           <div className="book-cover" style={props.cover}></div>
           <div className="book-shelf-changer">
-            <MenuSelect />
+            <MenuSelect shelf={props.shelf}/>
           </div>
         </div>
         <div className="book-title">{props.title}</div>
