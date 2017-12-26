@@ -57,12 +57,6 @@ export default class Shelf extends React.Component{
   //   }))
   // }
 
-  // changeShelf = (book) => {
-  //   this.setState((state) => {
-  //     state.books.book.shelf = 0
-  //   });
-  //   console.log(this.state);
-  // }
   render(){
     return (
       <div className="bookshelf">
