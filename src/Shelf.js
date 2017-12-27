@@ -48,36 +48,28 @@ export default class Shelf extends React.Component{
         },
         shelf: "Read"
       }
-    ]
+    ],
   }
 
-  // removeContact = (contact) => {
-  //   this.setState((state) => ({
-  //     contacts: state.contacts.filter((c) => c.id !== contact.id)
-  //   }))
-  // }
-
   render(){
+
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.shelfName}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {this.state.books.map(book =>
-              {if (book.shelf === this.props.shelfName) {
-                return (
-                  <Book
-                    shelf={book.shelf}
-                    key={book.id}
-                    cover={book.bookCover}
-                    title={book.bookTitle}
-                    author={book.bookAuthor}
-                  />
-                )
-              } else{
+            {this.state.books.map(book => {
+              if (this.props.shelfName === book.shelf){
+                (<Book
+                  key={book.id}
+                  cover={book.bookCover}
+                  title={book.bookTitle}
+                  author={book.bookAuthor}
+                />)
+              } else {
                 return null
-              }}
-            )}
+              }
+            })}
           </ol>
         </div>
       </div>
