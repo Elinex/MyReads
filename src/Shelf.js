@@ -59,13 +59,15 @@ export default class Shelf extends React.Component{
         <div className="bookshelf-books">
           <ol className="books-grid">
             {this.state.books.map(book => {
-              if (this.props.shelfName === book.shelf){
-                (<Book
-                  key={book.id}
-                  cover={book.bookCover}
-                  title={book.bookTitle}
-                  author={book.bookAuthor}
-                />)
+              if (book.shelf === this.props.shelfName){
+                return (
+                  <Book
+                    key={book.id}
+                    cover={book.bookCover}
+                    title={book.bookTitle}
+                    author={book.bookAuthor}
+                  />
+                )
               } else {
                 return null
               }

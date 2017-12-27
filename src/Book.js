@@ -1,16 +1,16 @@
 import React from 'react';
 
 export default class Book extends React.Component{
-  // state = {
-  //     shelf: "None"
-  // }
+  state = {
+      shelf: "None"
+  }
 
-  // handleChangeShelf = (e) => {
-  //   this.setState({
-  //     shelf: e.target.value
-  //   })
-  //   console.log(this.state, e.target.value)
-  // }
+  handleChangeShelf = (e) => {
+    this.setState({
+      shelf: e.target.value
+    })
+    console.log(this.state, e.target.value)
+  }
 
   render(){
     return (
