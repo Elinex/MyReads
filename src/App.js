@@ -1,9 +1,13 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
 import Shelf from './Shelf'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 
 class BooksApp extends React.Component{
   state = {
+    showSearchPage: false,
+    query: '',
     shelves: [
       ["currentlyReading", "Currently Reading"],
       ["wantToRead", "Want to Read"],
@@ -76,19 +80,61 @@ class BooksApp extends React.Component{
     })
   }
 
+  updateQuery = (query) => {
+    this.setState({
+      query: query.trim()
+    })
+  }
+
   render(){
     return (
-      <div>
-        {
-          this.state.shelves.map(shelf => (
-            <Shelf
-              shelfName={shelf[1]}
-              key={shelf[0]}
-              books={this.state.books.filter(book => shelf[1] === book.shelf)}
-              changeShelf={this.handleChangeShelf}
-            />
-          ))
-        }
+      <div className="app">
+        {this.state.showSearchPage ? (
+          <div className="search-books">
+            <div className="search-books-bar">
+              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+              <div className="search-books-input-wrapper">
+                {/*
+                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
+                  You can find these search terms here:
+                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
+
+                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
+                  you don't find a specific author or title. Every search is limited by search terms.
+                */}
+                <input
+                  type="text"
+                  placeholder="Search by title or author"
+                  value={this.state.query}
+                  onChange={(event) => this.updateQuery(event.target.value)}
+                />
+                {JSON.stringify(this.state.query)}
+              </div>
+            </div>
+            <div className="search-books-results">
+              <ol className="books-grid"></ol>
+            </div>
+          </div>
+        ) : (
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            <div className="list-books-content">
+              {this.state.shelves.map(shelf => (
+                <Shelf
+                  shelfName={shelf[1]}
+                  key={shelf[0]}
+                  books={this.state.books.filter(book => shelf[1] === book.shelf)}
+                  changeShelf={this.handleChangeShelf}
+                />
+              ))}
+            </div>
+            <div className="open-search">
+              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+            </div>
+          </div>
+        )}
       </div>
     )
   }
