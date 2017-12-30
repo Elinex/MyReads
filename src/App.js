@@ -3,6 +3,7 @@ import './App.css'
 import Shelf from './Shelf'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
+import Book from './Book'
 
 class BooksApp extends React.Component{
   state = {
@@ -82,11 +83,22 @@ class BooksApp extends React.Component{
 
   updateQuery = (query) => {
     this.setState({
-      query: query.trim()
+      query: query
     })
   }
 
   render(){
+
+    let showBooks
+    if (this.state.query){
+      const match = new RegExp(escapeRegExp(this.state.query), 'i')
+      showBooks = this.state.books.filter(book => (match.test(book.bookTitle) || match.test(book.bookAuthor)))
+    } else{
+      showBooks = this.state.books
+    }
+
+    showBooks.sort(sortBy('bookTitle', 'bookAuthor'))
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -108,11 +120,18 @@ class BooksApp extends React.Component{
                   value={this.state.query}
                   onChange={(event) => this.updateQuery(event.target.value)}
                 />
-                {JSON.stringify(this.state.query)}
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                {showBooks.map(book => {
+                  return (
+                  <Book
+                    key={book.id}
+                    book={book}
+                  />)
+                })}
+              </ol>
             </div>
           </div>
         ) : (
