@@ -95,10 +95,17 @@ class BooksApp extends React.Component{
     if (query){
       const match = new RegExp(escapeRegExp(query), 'i')
       showBooks = books.filter(book => (match.test(book.bookTitle) || match.test(book.bookAuthor)))
-    } else{
+    } else {
       showBooks = books
     }
     showBooks.sort(sortBy('bookTitle', 'bookAuthor'))
+
+    let quantityBooks
+    if (showBooks.length > 1){
+      quantityBooks = "books"
+    } else {
+      quantityBooks = "book"
+    }
 
     return (
       <div className="app">
@@ -124,6 +131,18 @@ class BooksApp extends React.Component{
               </div>
             </div>
             <div className="search-books-results">
+              <div>
+                {((showBooks.length !== books.length) && showBooks.length > 0) && (
+                  <div>
+                    Found {showBooks.length} {quantityBooks}
+                  </div>
+                )}
+                {(showBooks.length === 0) && (
+                  <div>
+                    No book found
+                  </div>
+                )}
+              </div>
               <ol className="books-grid">
                 {showBooks.map(book => {
                   return (
