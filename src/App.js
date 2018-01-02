@@ -83,20 +83,21 @@ class BooksApp extends React.Component{
 
   updateQuery = (query) => {
     this.setState({
-      query: query
+      query: query.trim()
     })
   }
 
   render(){
 
-    let showBooks
-    if (this.state.query){
-      const match = new RegExp(escapeRegExp(this.state.query), 'i')
-      showBooks = this.state.books.filter(book => (match.test(book.bookTitle) || match.test(book.bookAuthor)))
-    } else{
-      showBooks = this.state.books
-    }
+    let { query, shelves, books } = this.state
 
+    let showBooks
+    if (query){
+      const match = new RegExp(escapeRegExp(query), 'i')
+      showBooks = books.filter(book => (match.test(book.bookTitle) || match.test(book.bookAuthor)))
+    } else{
+      showBooks = books
+    }
     showBooks.sort(sortBy('bookTitle', 'bookAuthor'))
 
     return (
@@ -117,7 +118,7 @@ class BooksApp extends React.Component{
                 <input
                   type="text"
                   placeholder="Search by title or author"
-                  value={this.state.query}
+                  value={query}
                   onChange={(event) => this.updateQuery(event.target.value)}
                 />
               </div>
@@ -140,11 +141,11 @@ class BooksApp extends React.Component{
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              {this.state.shelves.map(shelf => (
+              {shelves.map(shelf => (
                 <Shelf
                   shelfName={shelf[1]}
                   key={shelf[0]}
-                  books={this.state.books.filter(book => shelf[1] === book.shelf)}
+                  books={books.filter(book => shelf[1] === book.shelf)}
                   changeShelf={this.handleChangeShelf}
                 />
               ))}
