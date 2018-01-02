@@ -1,8 +1,8 @@
 import React from 'react'
 import './App.css'
 import Shelf from './Shelf'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
+// import escapeRegExp from 'escape-string-regexp'
+// import sortBy from 'sort-by'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 
@@ -16,7 +16,8 @@ class BooksApp extends React.Component{
       ["read", "Read"],
       ["none", "None"]
     ],
-    books: []
+    books: [],
+    booksSearched: []
   }
 
   // mudar a prateleira:
@@ -29,6 +30,11 @@ class BooksApp extends React.Component{
       let books = state.books.map(book => {
         if (book.id === bookClicked) {
           book.shelf = newShelf
+          console.log(book)
+        } else {
+          book.shelf = newShelf
+          this.state.books.push(book)
+          console.log(book)
         }
         return book
       })
@@ -40,6 +46,20 @@ class BooksApp extends React.Component{
   updateQuery = (query) => {
     this.setState({
       query: query.trim()
+    })
+    this.searchBooks(this.state.query, 20)
+  }
+
+  searchBooks = (query, maxResults) => {
+    BooksAPI.search(query, maxResults).then( res => {
+      console.log(res)
+      if (Array.isArray(res)){
+        this.setState({
+          booksSearched: res
+        })
+      } else {
+        console.log("Oh shit :", res.error );
+      }
     })
   }
 
@@ -53,19 +73,19 @@ class BooksApp extends React.Component{
 
   render(){
 
-    let { query, shelves, books } = this.state
+    let { query, shelves, books, booksSearched } = this.state
 
-    let showBooks
-    if (query){
-      const match = new RegExp(escapeRegExp(query), 'i')
-      showBooks = books.filter(book => (match.test(book.title) || match.test(book.authors)))
-    } else {
-      showBooks = books
-    }
-    showBooks.sort(sortBy('title', 'authors'))
+    // let booksSearched
+    // if (query){
+    //   const match = new RegExp(escapeRegExp(query), 'i')
+    //   booksSearched = books.filter(book => (match.test(book.title) || match.test(book.authors)))
+    // } else {
+    //   booksSearched = books
+    // }
+    // booksSearched.sort(sortBy('title', 'authors'))
 
     let quantityBooks
-    if (showBooks.length > 1){
+    if (booksSearched.length > 1){
       quantityBooks = "books"
     } else {
       quantityBooks = "book"
@@ -96,23 +116,24 @@ class BooksApp extends React.Component{
             </div>
             <div className="search-books-results">
               <div>
-                {((showBooks.length !== books.length) && showBooks.length > 0) && (
+                {(booksSearched.length > 0) && (
                   <div>
-                    Found {showBooks.length} {quantityBooks}
+                    Found {booksSearched.length} {quantityBooks}
                   </div>
                 )}
-                {(showBooks.length === 0) && (
+                {(booksSearched.length === 0) && (
                   <div>
                     No book found
                   </div>
                 )}
               </div>
               <ol className="books-grid">
-                {showBooks.map(book => {
+                {booksSearched.map(book => {
                   return (
                   <Book
                     key={book.id}
                     book={book}
+                    changeShelf={this.handleChangeShelf}
                   />)
                 })}
               </ol>
