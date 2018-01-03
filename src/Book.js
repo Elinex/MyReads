@@ -15,8 +15,8 @@ function Book (props){
           <div className="book-cover" style={coverStyle}></div>
 
           <div className="book-shelf-changer">
-            <select value={props.book.shelf} onChange={(event) => props.changeShelf(props.book.id, event.target.value)}>
-              <option value="none" disabled>Move to...</option>
+            <select value={props.book.shelf ? props.book.shelf : "nothing"} onChange={(event) => props.changeShelf(props.book.id, event.target.value, props.book)}>
+              <option value="nothing" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
