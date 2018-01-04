@@ -1,6 +1,4 @@
 import React from 'react'
-// import escapeRegExp from 'escape-string-regexp'
-// import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
@@ -10,25 +8,16 @@ class BooksToSearch extends React.Component{
     booksAPIsearch: []
   }
 
-  componentDidMount (){
-    console.log('mounting', this.state)
-  }
-
   updateQuery = (query) => {
     this.setState({
       query: query.trim()
     })
     BooksAPI.search(query.trim(), 20).then(res => {
-      console.log(res);
       if (Array.isArray(res)){
         this.setState({
           booksAPIsearch: res
         })
-      } else {
-        console.log(res)
-        // return null
       }
-      console.log(this.state.booksAPIsearch);
     })
   }
 
@@ -36,15 +25,6 @@ class BooksToSearch extends React.Component{
 
     let { query, booksAPIsearch } = this.state
 
-    // let showBooks
-    // if (query){
-    //   const match = new RegExp(escapeRegExp(query), 'i')
-    //   showBooks = booksAPIsearch.filter(book => (match.test(book.title) || match.test(book.authors)))
-    // } else {
-    //   showBooks = booksAPIsearch
-    // }
-    // showBooks.sort(sortBy('title', 'authors'))
-    //
     let quantityBooks
     if (booksAPIsearch.length > 1){
       quantityBooks = "books"
@@ -94,7 +74,6 @@ class BooksToSearch extends React.Component{
       </div>
     )
   }
-
 }
 
 export default BooksToSearch

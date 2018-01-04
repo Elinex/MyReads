@@ -10,8 +10,7 @@ class BooksApp extends React.Component{
     shelves: [
       ["currentlyReading", "Currently Reading"],
       ["wantToRead", "Want to Read"],
-      ["read", "Read"],
-      // ["none", "None"]
+      ["read", "Read"]
     ],
     books: []
   }
@@ -22,36 +21,12 @@ class BooksApp extends React.Component{
       this.setState( state => {
         bookClicked.shelf = newShelf
         state.books.push(bookClicked)
-        console.log(state.books);
         return { books: state.books }
       })
     } else {
       this.changeShelfTest(idBookClicked, newShelf)
     }
-    console.log((a), this.state.books);
   }
-
-  // bookClicked é o id do livro clicado
-  // newShelf é a prateleira selecionada do livro clicado
-  // a função handleChangeShelf retorna o novo estado de "books" da seguinte forma:
-  // changeShelfTest = (bookClicked, newShelf) => {
-  //   // chama a função setState e usa como parâmetro o state atual que será atualizado
-  //   this.setState((state) => {
-  //     // itera por todos os itens da array state.books
-  //     let books = state.books.map(book => {
-  //       // se o id do livro que pertence ao atual state for igual ao id do livro clicado
-  //       if (book.id === bookClicked) {
-  //         // a função altera a shelf do livro que está no state para o novo valor "newShelf"
-  //         book.shelf = newShelf
-  //       }
-  //       // e retorna o livro com o novo valor de shelf ou não
-  //       return book
-  //     })
-  //     // a função retorna um objeto com uma chave "books" e valor com a lista de livros atualizada
-  //     return { books: books };
-  //   })
-  // }
-
 
   changeShelfTest = (bookClicked, newShelf) => {
     this.setState((state) => {
@@ -64,7 +39,6 @@ class BooksApp extends React.Component{
       return { books: books };
     })
   }
-
 
   componentDidMount (){
     BooksAPI.getAll().then(books => {
