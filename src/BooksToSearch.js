@@ -1,10 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 import { Link } from 'react-router-dom'
 
-
-class BooksToSearch extends Component{
+class BooksToSearch extends React.Component{
   state = {
     query: '',
     booksAPIsearch: []
@@ -37,7 +36,7 @@ class BooksToSearch extends Component{
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <Link to="/home" className="close-search" onClick={() => this.props.changePage()}>Close</Link>
+          <Link to="/" className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
             <input
               type="text"

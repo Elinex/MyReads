@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
+import React from 'react'
 import './App.css'
 import Shelf from './Shelf'
 import * as BooksAPI from './BooksAPI'
 import BooksToSearch from './BooksToSearch'
+import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-class BooksApp extends Component{
+class BooksApp extends React.Component{
   state = {
-    showSearchPage: false,
     shelves: [
       ["currentlyReading", "Currently Reading"],
       ["wantToRead", "Want to Read"],
@@ -16,20 +16,23 @@ class BooksApp extends Component{
     books: []
   }
 
+  // Actualize the property shelf of all books when menu selection is clicked
   handleChangeShelf = (idBookClicked, newShelf, bookClicked ) => {
-    let a = this.state.books.filter(book => (book.id === idBookClicked))
-    if (a.length === 0) {
+    let bookExists = this.state.books.filter(book => (book.id === idBookClicked))
+    if (bookExists.length === 0) {
       this.setState( state => {
         bookClicked.shelf = newShelf
         state.books.push(bookClicked)
         return { books: state.books }
       })
     } else {
-      this.changeShelfTest(idBookClicked, newShelf)
+      this.changeShelfBooks(idBookClicked, newShelf)
     }
   }
 
-  changeShelfTest = (bookClicked, newShelf) => {
+  // Change property shelf of books already exists in this.state.books
+  // This function is just used in the "handleChangeShelf" function
+  changeShelfBooks = (bookClicked, newShelf) => {
     this.setState((state) => {
       let books = state.books.map(book => {
         if (book.id === bookClicked) {
@@ -49,24 +52,19 @@ class BooksApp extends Component{
     })
   }
 
-  changeSearchPage = () => {
-    this.setState({
-      showSearchPage: false
-    })
-  }
-
   render(){
 
     let { shelves, books } = this.state
 
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        <Route exact path="/search" render={() => (
           <BooksToSearch
             changePage={this.changeSearchPage}
             changeShelf={this.handleChangeShelf}
           />
-        ) : (
+        )}/>
+        <Route exact path="/" render={() => (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -82,10 +80,10 @@ class BooksApp extends Component{
               ))}
             </div>
             <div className="open-search">
-              <Link to="/search-page" onClick={() => this.setState({ showSearchPage: true })}>Add a book</Link>
+              <Link to="/search">Add a book</Link>
             </div>
           </div>
-        )}
+        )}/>
       </div>
     )
   }
