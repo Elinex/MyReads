@@ -1,6 +1,6 @@
 import React from 'react'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
+// import escapeRegExp from 'escape-string-regexp'
+// import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
@@ -10,18 +10,25 @@ class BooksToSearch extends React.Component{
     booksAPIsearch: []
   }
 
+  componentDidMount (){
+    console.log('mounting', this.state)
+  }
+
   updateQuery = (query) => {
     this.setState({
       query: query.trim()
     })
     BooksAPI.search(query.trim(), 20).then(res => {
+      console.log(res);
       if (Array.isArray(res)){
         this.setState({
           booksAPIsearch: res
         })
       } else {
-        console.log(res.error)
+        console.log(res)
+        // return null
       }
+      console.log(this.state.booksAPIsearch);
     })
   }
 
@@ -29,17 +36,17 @@ class BooksToSearch extends React.Component{
 
     let { query, booksAPIsearch } = this.state
 
-    let showBooks
-    if (query){
-      const match = new RegExp(escapeRegExp(query), 'i')
-      showBooks = booksAPIsearch.filter(book => (match.test(book.title) || match.test(book.authors)))
-    } else {
-      showBooks = booksAPIsearch
-    }
-    showBooks.sort(sortBy('title', 'authors'))
-
+    // let showBooks
+    // if (query){
+    //   const match = new RegExp(escapeRegExp(query), 'i')
+    //   showBooks = booksAPIsearch.filter(book => (match.test(book.title) || match.test(book.authors)))
+    // } else {
+    //   showBooks = booksAPIsearch
+    // }
+    // showBooks.sort(sortBy('title', 'authors'))
+    //
     let quantityBooks
-    if (showBooks.length > 1){
+    if (booksAPIsearch.length > 1){
       quantityBooks = "books"
     } else {
       quantityBooks = "book"
@@ -60,19 +67,21 @@ class BooksToSearch extends React.Component{
         </div>
         <div className="search-books-results">
           <div>
-            {(showBooks.length > 0) && (
+            {(booksAPIsearch.length > 0) && (
               <div>
-                Found {showBooks.length} {quantityBooks}
+                Found {booksAPIsearch.length} {quantityBooks}
               </div>
             )}
-            {(showBooks.length === 0) && (
-              <div>
-                No book found
+            {(booksAPIsearch.length === 0) && (
+              <div className="bookshelf-books">
+                <h3>"Livros não mudam o mundo, quem muda o mundo são as pessoas. Os livros só mudam as pessoas!"</h3>
+                <p>Mario Quintana</p>
+                <h2>Let's put your readings in order!</h2>
               </div>
             )}
           </div>
           <ol className="books-grid">
-            {showBooks.map(book => {
+            {booksAPIsearch.map(book => {
               return (
               <Book
                 key={book.id}

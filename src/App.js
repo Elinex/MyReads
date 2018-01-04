@@ -11,7 +11,7 @@ class BooksApp extends React.Component{
       ["currentlyReading", "Currently Reading"],
       ["wantToRead", "Want to Read"],
       ["read", "Read"],
-      ["none", "None"]
+      // ["none", "None"]
     ],
     books: []
   }

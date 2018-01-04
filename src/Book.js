@@ -1,11 +1,16 @@
 import React from 'react';
+import defaultbook from './icons/defaultbook.png'
 
 function Book (props){
 
-  const coverStyle ={
+  let coverStyle ={
     width: 128,
     height: 193,
-    backgroundImage: `url("${props.book.imageLinks.smallThumbnail}")`
+    backgroundImage: `url("${defaultbook}")`
+  }
+
+  if (props.book.imageLinks) {
+    coverStyle.backgroundImage = `url("${props.book.imageLinks.smallThumbnail}")`
   }
 
   return (
@@ -13,7 +18,6 @@ function Book (props){
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={coverStyle}></div>
-
           <div className="book-shelf-changer">
             <select value={props.book.shelf ? props.book.shelf : "nothing"} onChange={(event) => props.changeShelf(props.book.id, event.target.value, props.book)}>
               <option value="nothing" disabled>Move to...</option>
