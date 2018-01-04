@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Component} from 'react'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
-class BooksToSearch extends React.Component{
+class BooksToSearch extends Component{
   state = {
     query: '',
     booksAPIsearch: []

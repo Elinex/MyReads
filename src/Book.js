@@ -17,7 +17,9 @@ function Book (props){
     <li>
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={coverStyle}></div>
+          <a href={props.book.infoLink} target="_blank">
+            <div className="book-cover" style={coverStyle}></div>
+          </a>
           <div className="book-shelf-changer">
             <select value={props.book.shelf ? props.book.shelf : "nothing"} onChange={(event) => props.changeShelf(props.book.id, event.target.value, props.book)}>
               <option value="nothing" disabled>Move to...</option>
