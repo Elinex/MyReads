@@ -17,9 +17,12 @@ class BooksApp extends React.Component{
   }
 
   // Actualize the property shelf of all books when menu selection is clicked
+  // idBookClicked means "props.book.id" -> the id of clicked book from Book component
+  // newShelf means "event.target.value" -> the shelf choiced in the menu selection inside Book component
+  // bookClicked means "props.book" -> the cliked book from Book component
   handleChangeShelf = (idBookClicked, newShelf, bookClicked ) => {
-    let bookExists = this.state.books.filter(book => (book.id === idBookClicked))
-    if (bookExists.length === 0) {
+    let bookAlreadyExists = this.state.books.filter(book => (book.id === idBookClicked))
+    if (bookAlreadyExists.length === 0) {
       this.setState( state => {
         bookClicked.shelf = newShelf
         state.books.push(bookClicked)
@@ -28,6 +31,15 @@ class BooksApp extends React.Component{
     } else {
       this.changeShelfBooks(idBookClicked, newShelf)
     }
+    BooksAPI.update(idBookClicked, newShelf).then( res => {
+      if ((newShelf.search("none") === 0) || (idBookClicked === undefined)){
+        console.log("newShelf is ", newShelf, "and idBookClicked is ", idBookClicked);
+        return null
+      } else {
+        console.log(res, this.state.books);
+        return res
+      }
+    })
   }
 
   // Change property shelf of books already exists in this.state.books
@@ -51,6 +63,26 @@ class BooksApp extends React.Component{
       })
     })
   }
+
+  // ### `update`
+  // Method Signature:
+  // * book: `<Object>` containing at minimum an `id` attribute
+  // * shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]
+  // * Returns a Promise which resolves to a JSON object containing the response data of the POST request
+  // onChange={(event) => props.changeShelf(props.book.id, event.target.value, props.book)}
+  // updateBooks = (idBookClicked, newShelf) => {
+  //   BooksAPI.update(idBookClicked, newShelf).then( res => {
+  //     if ((newShelf.search("none") === 0) || (idBookClicked === undefined)){
+  //       console.log("newShelf is ", newShelf, "and idBookClicked is ", idBookClicked);
+  //       return null
+  //     } else {
+  //       console.log(res);
+  //       return res
+  //     }
+  //   })
+  // }
+
+
 
   render(){
 
