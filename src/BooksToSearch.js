@@ -69,9 +69,10 @@ class BooksToSearch extends React.Component{
             )}
             {(booksAPIsearch.length === 0) && (
               <div className="bookshelf-books">
-                <h3>"Livros não mudam o mundo, quem muda o mundo são as pessoas. Os livros só mudam as pessoas!"</h3>
-                <p>Mario Quintana</p>
-                <h2>Let's put your readings in order!</h2>
+                <h2>"Livros não mudam o mundo, quem muda o mundo são as pessoas.
+                  Os livros só mudam as pessoas!"</h2>
+                <h3>Mario Quintana</h3>
+                <h1>Let's put your readings in order!</h1>
               </div>
             )}
           </div>
