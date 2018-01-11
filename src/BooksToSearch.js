@@ -15,6 +15,13 @@ class BooksToSearch extends React.Component{
     })
     BooksAPI.search(query.trim(), 20).then(res => {
       if (Array.isArray(res)){
+        res.map(data => {
+          const foundBook = this.props.books.find(book => (book.id === data.id))
+          if (foundBook !== undefined){
+            data.shelf = foundBook.shelf
+          }
+          return data
+        })
         this.setState({
           booksAPIsearch: res
         })
