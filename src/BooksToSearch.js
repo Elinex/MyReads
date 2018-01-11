@@ -18,6 +18,10 @@ class BooksToSearch extends React.Component{
         this.setState({
           booksAPIsearch: res
         })
+      } else {
+        this.setState({
+          booksAPIsearch: []
+        })
       }
     })
   }
