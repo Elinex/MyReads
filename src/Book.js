@@ -13,6 +13,14 @@ function Book (props){
     coverStyle.backgroundImage = `url("${props.book.imageLinks.smallThumbnail}")`
   }
 
+  let authors = props.book.authors
+
+  if (props.book.authors.length === 0){
+    authors = 'Author not informed'
+  } else if (props.book.authors.length > 0){
+    authors = authors.join(', ')
+  }
+
   return (
     <li>
       <div className="book">
@@ -31,7 +39,7 @@ function Book (props){
           </div>
         </div>
         <div className="book-title">{props.book.title}</div>
-        <div className="book-authors">{props.book.authors}</div>
+        <div className="book-authors">{authors}</div>
       </div>
     </li>
   )
