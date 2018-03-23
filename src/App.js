@@ -15,7 +15,7 @@ class BooksApp extends React.Component{
     ],
     books: []
   }
-
+  
   // Actualize the property shelf of book when menu selection is clicked
   // idBookClicked means "props.book.id" -> the id of clicked book from Book component
   // newShelf means "event.target.value" -> the shelf choiced in the menu selection inside Book component
@@ -31,6 +31,7 @@ class BooksApp extends React.Component{
     } else {
       this.changeShelfBooks(idBookClicked, newShelf)
     }
+    BooksAPI.update(bookClicked, newShelf)
   }
 
   // Change property shelf of books already exist in this.state.books
