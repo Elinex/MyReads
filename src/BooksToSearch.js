@@ -71,7 +71,7 @@ class BooksToSearch extends React.Component{
               <div className="bookshelf-books">
                 <h2>"Livros não mudam o mundo, quem muda o mundo são as pessoas. Os livros só mudam as pessoas!"</h2>
                 <h3>Mari Quintana</h3>
-                <h1>Let\'s put your readings in order!</h1>
+                <h1>Let's put your readings in order!</h1>
               </div>
             )}
           </div>
