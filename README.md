@@ -1,6 +1,6 @@
 # MyReads App
 
-Runs __npm start__ inside of _myReads_'s directory to start seeing its front end.
+Runs __npm install__ and __npm start__ inside of _myReads_'s directory to start seeing its front end.
 
 
 ## Create React App
