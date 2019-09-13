@@ -1,6 +1,4 @@
-# MyReads Project
-
-This project is the front end for __MyReads - A Book Lending App__ , that makes part of [project 1](https://review.udacity.com/#!/rubrics/1093/view) from React Udacity ND.
+# MyReads App
 
 Runs __npm start__ inside of _myReads_'s directory to start seeing its front end.
 
